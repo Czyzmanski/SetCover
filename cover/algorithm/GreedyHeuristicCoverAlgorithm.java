@@ -7,12 +7,12 @@ import java.io.OutputStream;
 
 public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
 
-    public GreedyHeuristicCoverAlgorithm(TargetSet targetSet, IndexedSetsFamily indexedSetsFamily, OutputStream outputStream) {
-        super(targetSet, indexedSetsFamily, outputStream);
+    public GreedyHeuristicCoverAlgorithm(OutputStream resultsOutputStream) {
+        super(resultsOutputStream);
     }
 
     @Override
-    public void run() {
+    public void run(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet) {
         //TODO
     }
 

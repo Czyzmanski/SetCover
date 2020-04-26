@@ -12,27 +12,22 @@ public abstract class CoverAlgorithm {
     private static final int BRUTE_FORCE = 1;
     private static final int NAIVE_HEURISTIC = 2;
     private static final int GREEDY_HEURISTIC = 3;
-
-    protected final TargetSet targetSet;
-    protected final IndexedSetsFamily indexedSetsFamily;
+    
     protected final Writer solutionWriter;
 
-    public CoverAlgorithm(TargetSet targetSet, IndexedSetsFamily indexedSetsFamily, OutputStream outputStream) {
-        this.targetSet = targetSet;
-        this.indexedSetsFamily = indexedSetsFamily;
-        this.solutionWriter = new PrintWriter(outputStream);
+    public CoverAlgorithm(OutputStream solutionOutputStream) {
+        this.solutionWriter = new PrintWriter(solutionOutputStream);
     }
 
-    public abstract void run();
+    public abstract void run(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet);
 
-    public static CoverAlgorithm newInstance(int type, TargetSet targetSet,
-                                             IndexedSetsFamily indexedSetsFamily, OutputStream outputStream) {
+    public static CoverAlgorithm newInstance(int type, OutputStream solutionOutputStream) {
         if (type == BRUTE_FORCE) {
-            return new BruteForceCoverAlgorithm(targetSet, indexedSetsFamily, outputStream);
+            return new BruteForceCoverAlgorithm(solutionOutputStream);
         } else if (type == NAIVE_HEURISTIC) {
-            return new NaiveHeuristicCoverAlgorithm(targetSet, indexedSetsFamily, outputStream);
+            return new NaiveHeuristicCoverAlgorithm(solutionOutputStream);
         } else if (type == GREEDY_HEURISTIC) {
-            return new GreedyHeuristicCoverAlgorithm(targetSet, indexedSetsFamily, outputStream);
+            return new GreedyHeuristicCoverAlgorithm(solutionOutputStream);
         } else {
             throw new UnsupportedOperationException("Unsupported type of algorithm");
         }

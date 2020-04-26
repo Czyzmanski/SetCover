@@ -5,11 +5,13 @@ import java.util.Set;
 
 public class TargetSet {
 
+    private static final int FIRST_NUMBER = 1;
+
     private Set<Integer> numbers;
 
-    public TargetSet(int firstNumber, int lastNumber) {
+    public TargetSet(int lastNumber) {
         this.numbers = new HashSet<>();
-        for (int i = firstNumber; i <= lastNumber; i++) {
+        for (int i = FIRST_NUMBER; i <= lastNumber; i++) {
             this.numbers.add(i);
         }
     }
