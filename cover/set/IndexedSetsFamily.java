@@ -11,6 +11,7 @@ public class IndexedSetsFamily {
 
     public IndexedSetsFamily() {
         this.sets = new ArrayList<>();
+        this.sets.add(new IndexedSetsFamilyMember());
     }
 
     public void addSet(IndexedSetsFamilyMember set) {
@@ -30,4 +31,10 @@ public class IndexedSetsFamily {
         return this.sets.size();
     }
 
+    @Override
+    public String toString() {
+        return "IndexedSetsFamily{" +
+                "sets=" + sets +
+                '}';
+    }
 }

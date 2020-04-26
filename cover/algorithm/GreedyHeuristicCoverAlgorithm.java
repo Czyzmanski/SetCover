@@ -41,4 +41,10 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
         }
     }
 
+    @Override
+    public String toString() {
+        return "GreedyHeuristicCoverAlgorithm{" +
+                "solution=" + solution +
+                '}';
+    }
 }

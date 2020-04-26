@@ -44,4 +44,12 @@ public class ArithmeticSequence extends Sequence {
         return Objects.hash(this.firstTerm, this.difference, this.lastTerm);
     }
 
+    @Override
+    public String toString() {
+        return "ArithmeticSequence{" +
+                "difference=" + difference +
+                ", lastTerm=" + lastTerm +
+                ", firstTerm=" + firstTerm +
+                '}';
+    }
 }

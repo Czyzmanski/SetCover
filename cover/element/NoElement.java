@@ -17,4 +17,9 @@ public class NoElement extends Element {
         return 0;
     }
 
+    @Override
+    public String toString() {
+        return "NoElement{}";
+    }
+
 }

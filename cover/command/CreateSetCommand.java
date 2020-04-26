@@ -14,4 +14,10 @@ public class CreateSetCommand extends Command {
         this.indexedSetsFamily.addSet(new IndexedSetsFamilyMember());
     }
 
+    @Override
+    public String toString() {
+        return "CreateSetCommand{" +
+                "indexedSetsFamily=" + indexedSetsFamily +
+                '}';
+    }
 }

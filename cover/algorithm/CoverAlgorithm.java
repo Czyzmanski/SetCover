@@ -9,8 +9,8 @@ import java.util.List;
 public abstract class CoverAlgorithm {
 
     private static final int BRUTE_FORCE = 1;
-    private static final int NAIVE_HEURISTIC = 2;
-    private static final int GREEDY_HEURISTIC = 3;
+    private static final int GREEDY_HEURISTIC = 2;
+    private static final int NAIVE_HEURISTIC = 3;
 
     protected List<Integer> solution;
 

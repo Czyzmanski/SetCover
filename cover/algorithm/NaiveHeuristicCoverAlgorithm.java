@@ -4,7 +4,7 @@ import cover.set.IndexedSetsFamily;
 import cover.set.IndexedSetsFamilyMember;
 import cover.set.TargetSet;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class NaiveHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
 
@@ -20,8 +20,15 @@ public class NaiveHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
         }
 
         if (!targetSet.isEmpty()) {
-            this.solution.clear();
+            this.solution = new ArrayList<>();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "NaiveHeuristicCoverAlgorithm{" +
+                "solution=" + solution +
+                '}';
     }
 
 }

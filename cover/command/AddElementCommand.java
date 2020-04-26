@@ -17,4 +17,11 @@ public class AddElementCommand extends Command {
         this.indexedSetsFamily.addToLastSet(this.element);
     }
 
+    @Override
+    public String toString() {
+        return "AddElementCommand{" +
+                "element=" + element +
+                ", indexedSetsFamily=" + indexedSetsFamily +
+                '}';
+    }
 }

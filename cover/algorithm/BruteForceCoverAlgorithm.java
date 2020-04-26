@@ -4,7 +4,6 @@ import cover.set.IndexedSetsFamily;
 import cover.set.IndexedSetsFamilyMember;
 import cover.set.TargetSet;
 
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,4 +48,11 @@ public class BruteForceCoverAlgorithm extends CoverAlgorithm {
                 && this.foundSolutionSize != OPTIMAL_SOLUTION_SIZE;
     }
 
+    @Override
+    public String toString() {
+        return "BruteForceCoverAlgorithm{" +
+                "foundSolutionSize=" + foundSolutionSize +
+                ", solution=" + solution +
+                '}';
+    }
 }

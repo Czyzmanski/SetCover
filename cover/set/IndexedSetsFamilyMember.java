@@ -26,4 +26,10 @@ public class IndexedSetsFamilyMember {
                             .contains(number);
     }
 
+    @Override
+    public String toString() {
+        return "IndexedSetsFamilyMember{" +
+                "elements=" + elements +
+                '}';
+    }
 }

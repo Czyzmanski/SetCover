@@ -32,4 +32,11 @@ public class SingleElement extends Element {
         return Objects.hash(this.value);
     }
 
+    @Override
+    public String toString() {
+        return "SingleElement{" +
+                "value=" + value +
+                '}';
+    }
+
 }
