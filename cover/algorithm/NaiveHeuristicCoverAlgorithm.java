@@ -4,6 +4,8 @@ import cover.set.IndexedSetsFamily;
 import cover.set.IndexedSetsFamilyMember;
 import cover.set.TargetSet;
 
+import java.util.List;
+
 public class NaiveHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
 
     @Override
@@ -13,7 +15,7 @@ public class NaiveHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
             IndexedSetsFamilyMember setsFamilyMember = indexedSetsFamily.get(i);
             if (!targetSet.isIntersectionEmpty(setsFamilyMember)) {
                 targetSet = targetSet.removeNumbers(setsFamilyMember);
-                this.solution.add(i + 1);
+                this.solution.add(i);
             }
         }
 

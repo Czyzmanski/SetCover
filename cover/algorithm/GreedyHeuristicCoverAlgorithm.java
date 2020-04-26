@@ -4,6 +4,8 @@ import cover.set.IndexedSetsFamily;
 import cover.set.IndexedSetsFamilyMember;
 import cover.set.TargetSet;
 
+import java.util.ArrayList;
+
 public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
 
     @Override
@@ -24,13 +26,13 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
             }
 
             if (maxIntersectionSize == 0) {
-                this.solution.clear();
+                this.solution = new ArrayList<>();
                 break;
             } else {
                 IndexedSetsFamilyMember maxIntersectionSizeSet = indexedSetsFamily.get(maxIntersectionSizeSetNumber);
                 targetSet = targetSet.removeNumbers(maxIntersectionSizeSet);
                 usedSets[maxIntersectionSizeSetNumber] = true;
-                this.solution.add(maxIntersectionSizeSetNumber + 1);
+                this.solution.add(maxIntersectionSizeSetNumber);
             }
         }
 

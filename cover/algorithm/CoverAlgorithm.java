@@ -12,10 +12,14 @@ public abstract class CoverAlgorithm {
     private static final int NAIVE_HEURISTIC = 2;
     private static final int GREEDY_HEURISTIC = 3;
 
-    protected final List<Integer> solution;
+    protected List<Integer> solution;
 
     public CoverAlgorithm() {
         this.solution = new ArrayList<>();
+    }
+
+    public List<Integer> solution() {
+        return this.solution;
     }
 
     public abstract void run(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet);
