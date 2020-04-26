@@ -9,7 +9,9 @@ public class BruteForceCoverAlgorithm extends CoverAlgorithm {
 
     @Override
     public void run(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet) {
-        //TODO
+        
     }
+
+
 
 }

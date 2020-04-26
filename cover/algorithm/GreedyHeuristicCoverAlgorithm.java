@@ -28,7 +28,7 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
                 break;
             } else {
                 IndexedSetsFamilyMember maxIntersectionSizeSet = indexedSetsFamily.get(maxIntersectionSizeSetNumber);
-                targetSet.removeNumbers(maxIntersectionSizeSet);
+                targetSet = targetSet.removeNumbers(maxIntersectionSizeSet);
                 usedSets[maxIntersectionSizeSetNumber] = true;
                 this.solution.add(maxIntersectionSizeSetNumber + 1);
             }

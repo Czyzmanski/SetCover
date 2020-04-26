@@ -2,6 +2,8 @@ package cover.set;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class TargetSet {
 
@@ -16,8 +18,15 @@ public class TargetSet {
         }
     }
 
-    public void removeNumbers(IndexedSetsFamilyMember set) {
-        this.numbers.removeIf(set::containsNumber);
+    private TargetSet(Set<Integer> numbers) {
+        this.numbers = numbers;
+    }
+
+    public TargetSet removeNumbers(IndexedSetsFamilyMember set) {
+        Set<Integer> newNumbers = this.numbers.stream()
+                                              .filter(Predicate.not(set::containsNumber))
+                                              .collect(Collectors.toCollection(HashSet::new));
+        return new TargetSet(newNumbers);
     }
 
     public int intersectionSize(IndexedSetsFamilyMember set) {

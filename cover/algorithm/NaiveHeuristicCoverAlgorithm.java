@@ -12,7 +12,7 @@ public class NaiveHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
         for (int i = 0; i < indexedSetFamilySize && !targetSet.isEmpty(); i++) {
             IndexedSetsFamilyMember setsFamilyMember = indexedSetsFamily.get(i);
             if (!targetSet.isIntersectionEmpty(setsFamilyMember)) {
-                targetSet.removeNumbers(setsFamilyMember);
+                targetSet = targetSet.removeNumbers(setsFamilyMember);
                 this.solution.add(i + 1);
             }
         }
