@@ -20,6 +20,12 @@ public class TargetSet {
         this.numbers.removeIf(set::containsNumber);
     }
 
+    public int intersectionSize(IndexedSetsFamilyMember set) {
+        return (int) this.numbers.stream()
+                                 .filter(set::containsNumber)
+                                 .count();
+    }
+
     public boolean isIntersectionEmpty(IndexedSetsFamilyMember set) {
         Integer anyCommonNumber = this.numbers.stream()
                                               .filter(set::containsNumber)
