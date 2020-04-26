@@ -1,14 +1,14 @@
 package cover.command;
 
 import cover.algorithm.CoverAlgorithm;
-import cover.set.SetsFamily;
+import cover.set.IndexedSetsFamily;
 
 public class SolveCoverCommand extends Command {
 
     private final CoverAlgorithm coverAlgorithm;
 
-    public SolveCoverCommand(SetsFamily setsFamily, CoverAlgorithm coverAlgorithm) {
-        super(setsFamily);
+    public SolveCoverCommand(IndexedSetsFamily indexedSetsFamily, CoverAlgorithm coverAlgorithm) {
+        super(indexedSetsFamily);
         this.coverAlgorithm = coverAlgorithm;
     }
 

@@ -13,7 +13,6 @@ public class ArithmeticSequence extends Sequence {
         this.lastTerm = upperBound - (upperBound - this.firstTerm) % this.difference;
 
 
-        assert (this.lastTerm != Integer.MAX_VALUE);
         assert (this.firstTerm + this.difference <= upperBound);
     }
 

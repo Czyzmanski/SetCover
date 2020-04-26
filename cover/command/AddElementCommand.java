@@ -1,20 +1,20 @@
 package cover.command;
 
-import cover.set.SetsFamily;
+import cover.set.IndexedSetsFamily;
 import cover.element.Element;
 
 public class AddElementCommand extends Command {
 
     private final Element element;
 
-    public AddElementCommand(SetsFamily setsFamily, Element element) {
-        super(setsFamily);
+    public AddElementCommand(IndexedSetsFamily indexedSetsFamily, Element element) {
+        super(indexedSetsFamily);
         this.element = element;
     }
 
     @Override
     public void execute() {
-        this.setsFamily.addToLastSet(this.element);
+        this.indexedSetsFamily.addToLastSet(this.element);
     }
 
 }

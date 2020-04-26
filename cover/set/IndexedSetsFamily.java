@@ -4,30 +4,29 @@ import cover.element.Element;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-public class SetsFamily {
+public class IndexedSetsFamily {
 
-    private final List<Set<Element>> sets;
+    private final List<IndexedSetsFamilyMember> sets;
 
-    public SetsFamily() {
+    public IndexedSetsFamily() {
         this.sets = new ArrayList<>();
     }
 
-    public void addSet(Set<Element> set) {
+    public void addSet(IndexedSetsFamilyMember set) {
         this.sets.add(set);
     }
 
     public void addToLastSet(Element element) {
-        Set<Element> lastSet = this.sets.get(this.sets.size() - 1);
+        IndexedSetsFamilyMember lastSet = this.sets.get(this.sets.size() - 1);
         lastSet.add(element);
     }
 
-    public Set<Element> get(int setNumber) {
+    public IndexedSetsFamilyMember get(int setNumber) {
         return this.sets.get(setNumber);
     }
 
-    public int numberOfSets() {
+    public int size() {
         return this.sets.size();
     }
 

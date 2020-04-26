@@ -1,6 +1,6 @@
 package cover.algorithm;
 
-import cover.set.SetsFamily;
+import cover.set.IndexedSetsFamily;
 import cover.set.TargetSet;
 
 import java.io.OutputStream;
@@ -14,25 +14,25 @@ public abstract class CoverAlgorithm {
     private static final int GREEDY_HEURISTIC = 3;
 
     protected final TargetSet targetSet;
-    protected final SetsFamily setsFamily;
+    protected final IndexedSetsFamily indexedSetsFamily;
     protected final Writer solutionWriter;
 
-    public CoverAlgorithm(TargetSet targetSet, SetsFamily setsFamily, OutputStream outputStream) {
+    public CoverAlgorithm(TargetSet targetSet, IndexedSetsFamily indexedSetsFamily, OutputStream outputStream) {
         this.targetSet = targetSet;
-        this.setsFamily = setsFamily;
+        this.indexedSetsFamily = indexedSetsFamily;
         this.solutionWriter = new PrintWriter(outputStream);
     }
 
     public abstract void run();
 
     public static CoverAlgorithm newInstance(int type, TargetSet targetSet,
-                                             SetsFamily setsFamily, OutputStream outputStream) {
+                                             IndexedSetsFamily indexedSetsFamily, OutputStream outputStream) {
         if (type == BRUTE_FORCE) {
-            return new BruteForceCoverAlgorithm(targetSet, setsFamily, outputStream);
+            return new BruteForceCoverAlgorithm(targetSet, indexedSetsFamily, outputStream);
         } else if (type == NAIVE_HEURISTIC) {
-            return new NaiveHeuristicCoverAlgorithm(targetSet, setsFamily, outputStream);
+            return new NaiveHeuristicCoverAlgorithm(targetSet, indexedSetsFamily, outputStream);
         } else if (type == GREEDY_HEURISTIC) {
-            return new GreedyHeuristicCoverAlgorithm(targetSet, setsFamily, outputStream);
+            return new GreedyHeuristicCoverAlgorithm(targetSet, indexedSetsFamily, outputStream);
         } else {
             throw new UnsupportedOperationException("Unsupported type of algorithm");
         }

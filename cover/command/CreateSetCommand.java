@@ -1,18 +1,18 @@
 package cover.command;
 
-import cover.set.SetsFamily;
+import cover.set.IndexedSetsFamily;
 
 import java.util.HashSet;
 
 public class CreateSetCommand extends Command {
 
-    public CreateSetCommand(SetsFamily setsFamily) {
-        super(setsFamily);
+    public CreateSetCommand(IndexedSetsFamily indexedSetsFamily) {
+        super(indexedSetsFamily);
     }
 
     @Override
     public void execute() {
-        this.setsFamily.addSet(new HashSet<>());
+        this.indexedSetsFamily.addSet(new HashSet<>());
     }
 
 }

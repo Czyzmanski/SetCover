@@ -1,14 +1,14 @@
 package cover.algorithm;
 
-import cover.set.SetsFamily;
+import cover.set.IndexedSetsFamily;
 import cover.set.TargetSet;
 
 import java.io.OutputStream;
 
 public class BruteForceCoverAlgorithm extends CoverAlgorithm {
 
-    public BruteForceCoverAlgorithm(TargetSet targetSet, SetsFamily setsFamily, OutputStream outputStream) {
-        super(targetSet, setsFamily, outputStream);
+    public BruteForceCoverAlgorithm(TargetSet targetSet, IndexedSetsFamily indexedSetsFamily, OutputStream outputStream) {
+        super(targetSet, indexedSetsFamily, outputStream);
     }
 
     @Override
