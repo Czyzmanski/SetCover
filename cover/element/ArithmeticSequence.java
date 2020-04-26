@@ -2,7 +2,7 @@ package cover.element;
 
 import java.util.Objects;
 
-public abstract class ArithmeticSequence extends Sequence {
+public class ArithmeticSequence extends Sequence {
 
     private final int difference;
     private final int lastTerm;
@@ -14,7 +14,7 @@ public abstract class ArithmeticSequence extends Sequence {
 
 
         assert (this.lastTerm != Integer.MAX_VALUE);
-        assert (this.firstTerm <= upperBound);
+        assert (this.firstTerm + this.difference <= upperBound);
     }
 
     @Override

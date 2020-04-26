@@ -27,15 +27,14 @@ public abstract class CoverAlgorithm {
 
     public static CoverAlgorithm newInstance(int type, TargetSet targetSet,
                                              SetsFamily setsFamily, OutputStream outputStream) {
-        switch (type) {
-            case BRUTE_FORCE:
-                return new BruteForceCoverAlgorithm(targetSet, setsFamily, outputStream);
-            case NAIVE_HEURISTIC:
-                return new NaiveHeuristicCoverAlgorithm(targetSet, setsFamily, outputStream);
-            case GREEDY_HEURISTIC:
-                return new GreedyHeuristicCoverAlgorithm(targetSet, setsFamily, outputStream);
-            default:
-                throw new UnsupportedOperationException("Unsupported type of algorithm");
+        if (type == BRUTE_FORCE) {
+            return new BruteForceCoverAlgorithm(targetSet, setsFamily, outputStream);
+        } else if (type == NAIVE_HEURISTIC) {
+            return new NaiveHeuristicCoverAlgorithm(targetSet, setsFamily, outputStream);
+        } else if (type == GREEDY_HEURISTIC) {
+            return new GreedyHeuristicCoverAlgorithm(targetSet, setsFamily, outputStream);
+        } else {
+            throw new UnsupportedOperationException("Unsupported type of algorithm");
         }
     }
 
