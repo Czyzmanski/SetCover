@@ -20,10 +20,12 @@ public class TargetSet {
         this.numbers.removeIf(set::containsNumber);
     }
 
-    public int countMutualNumbers(IndexedSetsFamilyMember set) {
-        return (int) this.numbers.stream()
-                                 .filter(set::containsNumber)
-                                 .count();
+    public boolean isIntersectionEmpty(IndexedSetsFamilyMember set) {
+        Integer anyCommonNumber = this.numbers.stream()
+                                              .filter(set::containsNumber)
+                                              .findAny()
+                                              .orElse(null);
+        return anyCommonNumber == null;
     }
 
     public boolean isEmpty() {
