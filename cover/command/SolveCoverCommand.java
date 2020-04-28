@@ -15,8 +15,10 @@ public class SolveCoverCommand extends Command {
     private final CoverAlgorithm coverAlgorithm;
     private final PrintWriter solutionWriter;
 
-    public SolveCoverCommand(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet,
-                             CoverAlgorithm coverAlgorithm, OutputStream solutionOutputStream) {
+    public SolveCoverCommand(IndexedSetsFamily indexedSetsFamily,
+                             TargetSet targetSet,
+                             CoverAlgorithm coverAlgorithm,
+                             OutputStream solutionOutputStream) {
         super(indexedSetsFamily);
         this.targetSet = targetSet;
         this.coverAlgorithm = coverAlgorithm;
@@ -34,20 +36,12 @@ public class SolveCoverCommand extends Command {
             this.solutionWriter.print(solution.get(0) + 1);
             int solutionSize = solution.size();
             for (int i = 1; i < solutionSize; i++) {
-                this.solutionWriter.print(String.format(" %d", solution.get(i) + 1));
+                this.solutionWriter.print(
+                        String.format(" %d", solution.get(i) + 1));
             }
             this.solutionWriter.println();
         }
         this.solutionWriter.flush();
     }
 
-    @Override
-    public String toString() {
-        return "SolveCoverCommand{" +
-                "targetSet=" + targetSet +
-                ", coverAlgorithm=" + coverAlgorithm +
-                ", solutionWriter=" + solutionWriter +
-                ", indexedSetsFamily=" + indexedSetsFamily +
-                '}';
-    }
 }

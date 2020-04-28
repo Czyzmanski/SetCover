@@ -31,10 +31,4 @@ public class IndexedSetsFamily {
         return this.sets.size();
     }
 
-    @Override
-    public String toString() {
-        return "IndexedSetsFamily{" +
-                "sets=" + sets +
-                '}';
-    }
 }

@@ -31,28 +31,26 @@ public class BruteForceCoverAlgorithm extends CoverAlgorithm {
                 this.solution = new ArrayList<>(currentSolution);
             }
         } else if (this.bruteForceContinue(memberSetNumber, indexedSetsFamily, targetSet)) {
-            IndexedSetsFamilyMember setsFamilyMember = indexedSetsFamily.get(memberSetNumber);
+            IndexedSetsFamilyMember setsFamilyMember =
+                    indexedSetsFamily.get(memberSetNumber);
             if (!targetSet.isIntersectionEmpty(setsFamilyMember)) {
                 TargetSet newTargetSet = targetSet.removeNumbers(setsFamilyMember);
                 currentSolution.add(memberSetNumber);
-                this.bruteForce(memberSetNumber + 1, indexedSetsFamily, newTargetSet, currentSolution);
+                this.bruteForce(memberSetNumber + 1, indexedSetsFamily,
+                                newTargetSet, currentSolution);
                 currentSolution.remove(currentSolution.size() - 1);
             }
-            this.bruteForce(memberSetNumber + 1, indexedSetsFamily, targetSet, currentSolution);
+            this.bruteForce(memberSetNumber + 1, indexedSetsFamily,
+                            targetSet, currentSolution);
         }
     }
 
-    private boolean bruteForceContinue(int memberSetNumber, IndexedSetsFamily indexedSetsFamily, TargetSet targetSet) {
+    private boolean bruteForceContinue(int memberSetNumber,
+                                       IndexedSetsFamily indexedSetsFamily,
+                                       TargetSet targetSet) {
         return memberSetNumber < indexedSetsFamily.size()
                 && !targetSet.isEmpty()
                 && this.foundSolutionSize != OPTIMAL_SOLUTION_SIZE;
     }
 
-    @Override
-    public String toString() {
-        return "BruteForceCoverAlgorithm{" +
-                "foundSolutionSize=" + foundSolutionSize +
-                ", solution=" + solution +
-                '}';
-    }
 }

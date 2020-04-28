@@ -24,11 +24,4 @@ public class NaiveHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
         }
     }
 
-    @Override
-    public String toString() {
-        return "NaiveHeuristicCoverAlgorithm{" +
-                "solution=" + solution +
-                '}';
-    }
-
 }

@@ -17,7 +17,8 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
             int maxIntersectionSizeSetNumber = -1;
             for (int j = 0; j < indexedSetsFamilySize; j++) {
                 if (!usedSets[j]) {
-                    int intersectionSize = targetSet.intersectionSize(indexedSetsFamily.get(j));
+                    int intersectionSize =
+                            targetSet.intersectionSize(indexedSetsFamily.get(j));
                     if (intersectionSize > maxIntersectionSize) {
                         maxIntersectionSize = intersectionSize;
                         maxIntersectionSizeSetNumber = j;
@@ -26,10 +27,10 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
             }
 
             if (maxIntersectionSize == 0) {
-                this.solution = new ArrayList<>();
                 break;
             } else {
-                IndexedSetsFamilyMember maxIntersectionSizeSet = indexedSetsFamily.get(maxIntersectionSizeSetNumber);
+                IndexedSetsFamilyMember maxIntersectionSizeSet =
+                        indexedSetsFamily.get(maxIntersectionSizeSetNumber);
                 targetSet = targetSet.removeNumbers(maxIntersectionSizeSet);
                 usedSets[maxIntersectionSizeSetNumber] = true;
                 this.solution.add(maxIntersectionSizeSetNumber);
@@ -37,14 +38,8 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
         }
 
         if (!targetSet.isEmpty()) {
-            this.solution.clear();
+            this.solution = new ArrayList<>();
         }
     }
 
-    @Override
-    public String toString() {
-        return "GreedyHeuristicCoverAlgorithm{" +
-                "solution=" + solution +
-                '}';
-    }
 }

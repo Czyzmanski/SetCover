@@ -7,7 +7,8 @@ public class AddElementCommand extends Command {
 
     private final Element element;
 
-    public AddElementCommand(IndexedSetsFamily indexedSetsFamily, Element element) {
+    public AddElementCommand(IndexedSetsFamily indexedSetsFamily,
+                             Element element) {
         super(indexedSetsFamily);
         this.element = element;
     }
@@ -17,11 +18,4 @@ public class AddElementCommand extends Command {
         this.indexedSetsFamily.addToLastSet(this.element);
     }
 
-    @Override
-    public String toString() {
-        return "AddElementCommand{" +
-                "element=" + element +
-                ", indexedSetsFamily=" + indexedSetsFamily +
-                '}';
-    }
 }

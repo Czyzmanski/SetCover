@@ -19,7 +19,8 @@ public class CommandParser implements Iterator<Command> {
     private final OutputStream solutionOutputStream;
     private Integer lastRead;
 
-    public CommandParser(IndexedSetsFamily indexedSetsFamily, InputStream inputStream,
+    public CommandParser(IndexedSetsFamily indexedSetsFamily,
+                         InputStream inputStream,
                          OutputStream solutionOutputStream) {
         this.indexedSetsFamily = indexedSetsFamily;
         this.inputScanner = new Scanner(inputStream);
@@ -54,9 +55,11 @@ public class CommandParser implements Iterator<Command> {
         int targetSetLastNumber = -this.lastRead;
         int typeOfAlgorithm = this.inputScanner.nextInt();
         TargetSet targetSet = new TargetSet(targetSetLastNumber);
-        CoverAlgorithm coverAlgorithm = CoverAlgorithm.newInstance(typeOfAlgorithm);
+        CoverAlgorithm coverAlgorithm =
+                CoverAlgorithm.newInstance(typeOfAlgorithm);
         this.lastRead = null;
-        return new SolveCoverCommand(this.indexedSetsFamily, targetSet, coverAlgorithm, this.solutionOutputStream);
+        return new SolveCoverCommand(this.indexedSetsFamily, targetSet,
+                                     coverAlgorithm, this.solutionOutputStream);
     }
 
     private Command newCreateSetCommand() {
