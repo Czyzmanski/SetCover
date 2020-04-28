@@ -7,8 +7,7 @@ public class AddElementCommand extends Command {
 
     private final Element element;
 
-    public AddElementCommand(IndexedSetsFamily indexedSetsFamily,
-                             Element element) {
+    public AddElementCommand(IndexedSetsFamily indexedSetsFamily, Element element) {
         super(indexedSetsFamily);
         this.element = element;
     }
