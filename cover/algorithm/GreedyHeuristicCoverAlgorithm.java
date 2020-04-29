@@ -17,8 +17,7 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
             int maxIntersectionSizeSetNumber = -1;
             for (int j = 0; j < indexedSetsFamilySize; j++) {
                 if (!usedSets[j]) {
-                    int intersectionSize =
-                            targetSet.intersectionSize(indexedSetsFamily.get(j));
+                    int intersectionSize = targetSet.intersectionSize(indexedSetsFamily.get(j));
                     if (intersectionSize > maxIntersectionSize) {
                         maxIntersectionSize = intersectionSize;
                         maxIntersectionSizeSetNumber = j;

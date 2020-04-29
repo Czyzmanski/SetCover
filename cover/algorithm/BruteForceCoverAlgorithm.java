@@ -31,8 +31,7 @@ public class BruteForceCoverAlgorithm extends CoverAlgorithm {
                 this.solution = new ArrayList<>(currentSolution);
             }
         } else if (this.bruteForceContinue(memberSetNumber, indexedSetsFamily, targetSet)) {
-            IndexedSetsFamilyMember setsFamilyMember =
-                    indexedSetsFamily.get(memberSetNumber);
+            IndexedSetsFamilyMember setsFamilyMember = indexedSetsFamily.get(memberSetNumber);
             if (!targetSet.isIntersectionEmpty(setsFamilyMember)) {
                 TargetSet newTargetSet = targetSet.removeNumbers(setsFamilyMember);
                 currentSolution.add(memberSetNumber);

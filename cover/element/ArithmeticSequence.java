@@ -11,9 +11,6 @@ public class ArithmeticSequence extends Sequence {
         super(firstTerm);
         this.difference = difference;
         this.lastTerm = upperBound - (upperBound - this.firstTerm) % this.difference;
-
-
-        assert (this.firstTerm + this.difference <= upperBound);
     }
 
     @Override
