@@ -42,7 +42,7 @@ public class ElementBuilder {
             } else {
                 int upperBound = this.parameters.get(2);
                 if (firstTerm > upperBound) {
-                    return new NoElement();
+                    return null;
                 } else if (firstTerm == upperBound || difference == 0) {
                     return new SingleElement(firstTerm);
                 } else if ((long) firstTerm + (long) difference <= upperBound) {

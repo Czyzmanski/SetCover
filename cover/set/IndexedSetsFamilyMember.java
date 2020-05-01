@@ -1,7 +1,6 @@
 package cover.set;
 
 import cover.element.Element;
-import cover.element.NoElement;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,8 +21,7 @@ public class IndexedSetsFamilyMember {
         return this.elements.stream()
                             .filter(element -> element.contains(number))
                             .findAny()
-                            .orElse(new NoElement())
-                            .contains(number);
+                            .orElse(null) != null;
     }
 
 }

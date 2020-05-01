@@ -14,7 +14,9 @@ public class AddElementCommand extends Command {
 
     @Override
     public void execute() {
-        this.indexedSetsFamily.addToLastSet(this.element);
+        if (this.element != null) {
+            this.indexedSetsFamily.addToLastSet(this.element);
+        }
     }
 
 }

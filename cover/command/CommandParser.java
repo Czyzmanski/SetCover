@@ -35,7 +35,7 @@ public class CommandParser implements Iterator<Command> {
     @Override
     public Command next() {
         if (!this.hasNext()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("No next command available");
         } else {
             if (this.lastRead == null) {
                 this.lastRead = this.inputScanner.nextInt();
