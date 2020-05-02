@@ -1,23 +1,27 @@
 package cover.algorithm;
 
-import cover.set.IndexedSetsFamily;
-import cover.set.IndexedSetsFamilyMember;
-import cover.set.TargetSet;
+import cover.set.SetsFamily;
+import cover.set.SetsFamilyMember;
+import cover.set.SetToCover;
 
 import java.util.ArrayList;
 
 public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
 
+    public GreedyHeuristicCoverAlgorithm(SetToCover setToCover, SetsFamily setsFamily) {
+        super(setToCover, setsFamily);
+    }
+
     @Override
-    public void run(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet) {
-        int indexedSetsFamilySize = indexedSetsFamily.size();
-        boolean[] usedSets = new boolean[indexedSetsFamilySize];
-        for (int i = 0; i < indexedSetsFamilySize && !targetSet.isEmpty(); i++) {
+    public void run() {
+        int setsFamilySize = this.setsFamily.size();
+        boolean[] usedSets = new boolean[setsFamilySize];
+        for (int i = 0; i < setsFamilySize && !this.setToCover.isEmpty(); i++) {
             int maxIntersectionSize = 0;
             int maxIntersectionSizeSetNumber = -1;
-            for (int j = 0; j < indexedSetsFamilySize; j++) {
+            for (int j = 0; j < setsFamilySize; j++) {
                 if (!usedSets[j]) {
-                    int intersectionSize = targetSet.intersectionSize(indexedSetsFamily.get(j));
+                    int intersectionSize = this.setToCover.intersectionSize(setsFamily.get(j));
                     if (intersectionSize > maxIntersectionSize) {
                         maxIntersectionSize = intersectionSize;
                         maxIntersectionSizeSetNumber = j;
@@ -28,15 +32,15 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
             if (maxIntersectionSize == 0) {
                 break;
             } else {
-                IndexedSetsFamilyMember maxIntersectionSizeSet =
-                        indexedSetsFamily.get(maxIntersectionSizeSetNumber);
-                targetSet = targetSet.removeNumbers(maxIntersectionSizeSet);
+                SetsFamilyMember maxIntersectionSizeSet =
+                        this.setsFamily.get(maxIntersectionSizeSetNumber);
+                this.setToCover = this.setToCover.removeNumbers(maxIntersectionSizeSet);
                 usedSets[maxIntersectionSizeSetNumber] = true;
                 this.solution.add(maxIntersectionSizeSetNumber);
             }
         }
 
-        if (!targetSet.isEmpty()) {
+        if (!this.setToCover.isEmpty()) {
             this.solution = new ArrayList<>();
         }
     }

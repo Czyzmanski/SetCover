@@ -5,11 +5,11 @@ import cover.element.Element;
 import java.util.HashSet;
 import java.util.Set;
 
-public class IndexedSetsFamilyMember {
+public class SetsFamilyMember {
 
     private Set<Element> elements;
 
-    public IndexedSetsFamilyMember() {
+    public SetsFamilyMember() {
         this.elements = new HashSet<>();
     }
 

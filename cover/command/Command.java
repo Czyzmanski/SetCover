@@ -1,13 +1,13 @@
 package cover.command;
 
-import cover.set.IndexedSetsFamily;
+import cover.set.SetsFamily;
 
 public abstract class Command {
 
-    protected final IndexedSetsFamily indexedSetsFamily;
+    protected final SetsFamily setsFamily;
 
-    public Command(IndexedSetsFamily indexedSetsFamily) {
-        this.indexedSetsFamily = indexedSetsFamily;
+    public Command(SetsFamily setsFamily) {
+        this.setsFamily = setsFamily;
     }
 
     public abstract void execute();

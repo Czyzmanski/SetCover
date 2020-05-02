@@ -1,25 +1,29 @@
 package cover.algorithm;
 
-import cover.set.IndexedSetsFamily;
-import cover.set.IndexedSetsFamilyMember;
-import cover.set.TargetSet;
+import cover.set.SetsFamily;
+import cover.set.SetsFamilyMember;
+import cover.set.SetToCover;
 
 import java.util.ArrayList;
 
 public class NaiveHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
 
+    public NaiveHeuristicCoverAlgorithm(SetToCover setToCover, SetsFamily setsFamily) {
+        super(setToCover, setsFamily);
+    }
+
     @Override
-    public void run(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet) {
-        int indexedSetFamilySize = indexedSetsFamily.size();
-        for (int i = 0; i < indexedSetFamilySize && !targetSet.isEmpty(); i++) {
-            IndexedSetsFamilyMember setsFamilyMember = indexedSetsFamily.get(i);
-            if (!targetSet.isIntersectionEmpty(setsFamilyMember)) {
-                targetSet = targetSet.removeNumbers(setsFamilyMember);
+    public void run() {
+        int setsFamilySize = this.setsFamily.size();
+        for (int i = 0; i < setsFamilySize && !this.setToCover.isEmpty(); i++) {
+            SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
+            if (!this.setToCover.isIntersectionEmpty(setsFamilyMember)) {
+                this.setToCover = this.setToCover.removeNumbers(setsFamilyMember);
                 this.solution.add(i);
             }
         }
 
-        if (!targetSet.isEmpty()) {
+        if (!this.setToCover.isEmpty()) {
             this.solution = new ArrayList<>();
         }
     }

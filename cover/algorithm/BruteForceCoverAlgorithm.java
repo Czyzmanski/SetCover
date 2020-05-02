@@ -1,55 +1,73 @@
 package cover.algorithm;
 
-import cover.set.IndexedSetsFamily;
-import cover.set.IndexedSetsFamilyMember;
-import cover.set.TargetSet;
-
-import java.util.ArrayList;
-import java.util.List;
+import cover.set.SetsFamily;
+import cover.set.SetsFamilyMember;
+import cover.set.SetToCover;
 
 public class BruteForceCoverAlgorithm extends CoverAlgorithm {
 
-    private static final int OPTIMAL_SOLUTION_SIZE = 1;
+    private boolean solutionFound;
 
-    private int foundSolutionSize;
-
-    public BruteForceCoverAlgorithm() {
-        this.foundSolutionSize = Integer.MAX_VALUE;
+    public BruteForceCoverAlgorithm(SetToCover setToCover, SetsFamily setsFamily) {
+        super(setToCover, setsFamily);
+        this.solutionFound = false;
     }
 
     @Override
-    public void run(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet) {
-        this.bruteForce(0, indexedSetsFamily, targetSet, new ArrayList<>());
-    }
-
-    private void bruteForce(int memberSetNumber, IndexedSetsFamily indexedSetsFamily,
-                            TargetSet targetSet, List<Integer> currentSolution) {
-        if (targetSet.isEmpty()) {
-            int currentSolutionSize = currentSolution.size();
-            if (currentSolutionSize < this.foundSolutionSize) {
-                this.foundSolutionSize = currentSolutionSize;
-                this.solution = new ArrayList<>(currentSolution);
+    public void run() {
+        if (this.solutionExists(this.setToCover)) {
+            int setsFamilySize = this.setsFamily.size();
+            int combinationSize = 1;
+            while (combinationSize <= setsFamilySize && !this.solutionFound) {
+                int[] combination = new int[combinationSize];
+                this.checkCombinations(0, combination, 0, this.setToCover);
+                combinationSize++;
             }
-        } else if (this.bruteForceContinue(memberSetNumber, indexedSetsFamily, targetSet)) {
-            IndexedSetsFamilyMember setsFamilyMember = indexedSetsFamily.get(memberSetNumber);
-            if (!targetSet.isIntersectionEmpty(setsFamilyMember)) {
-                TargetSet newTargetSet = targetSet.removeNumbers(setsFamilyMember);
-                currentSolution.add(memberSetNumber);
-                this.bruteForce(memberSetNumber + 1, indexedSetsFamily,
-                                newTargetSet, currentSolution);
-                currentSolution.remove(currentSolution.size() - 1);
-            }
-            this.bruteForce(memberSetNumber + 1, indexedSetsFamily,
-                            targetSet, currentSolution);
         }
     }
 
-    private boolean bruteForceContinue(int memberSetNumber,
-                                       IndexedSetsFamily indexedSetsFamily,
-                                       TargetSet targetSet) {
-        return memberSetNumber < indexedSetsFamily.size()
-                && !targetSet.isEmpty()
-                && this.foundSolutionSize != OPTIMAL_SOLUTION_SIZE;
+    private boolean solutionExists(SetToCover setToCover) {
+        int setsFamilySize = this.setsFamily.size();
+        for (int i = 0; i < setsFamilySize && !setToCover.isEmpty(); i++) {
+            SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
+            setToCover = setToCover.removeNumbers(setsFamilyMember);
+        }
+        return setToCover.isEmpty();
+    }
+
+    private void checkCombinations(int i, int[] combination, int added, SetToCover setToCover) {
+        if (!this.solutionFound) {
+            int setsFamilySize = this.setsFamily.size();
+            if (added == combination.length) {
+                this.checkForSolution(combination, setToCover);
+            } else if (combination.length - added == setsFamilySize - i) {
+                while (added < combination.length) {
+                    combination[added] = i;
+                    SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
+                    setToCover = setToCover.removeNumbers(setsFamilyMember);
+                    added++;
+                    i++;
+                }
+                this.checkForSolution(combination, setToCover);
+            } else {
+                SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
+                if (!setToCover.isIntersectionEmpty(setsFamilyMember)) {
+                    combination[added] = i;
+                    SetToCover newSetToCover = setToCover.removeNumbers(setsFamilyMember);
+                    this.checkCombinations(i + 1, combination, added + 1, newSetToCover);
+                }
+                this.checkCombinations(i + 1, combination, added, setToCover);
+            }
+        }
+    }
+
+    private void checkForSolution(int[] combination, SetToCover setToCover) {
+        if (setToCover.isEmpty()) {
+            this.solutionFound = true;
+            for (int i = 0; i < combination.length; i++) {
+                this.solution.add(combination[i]);
+            }
+        }
     }
 
 }
