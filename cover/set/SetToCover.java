@@ -22,20 +22,20 @@ public class TargetSet {
         this.numbers = numbers;
     }
 
-    public TargetSet removeNumbers(IndexedSetsFamilyMember set) {
+    public TargetSet removeNumbers(SetsFamilyMember set) {
         Set<Integer> newNumbers = this.numbers.stream()
                                               .filter(Predicate.not(set::containsNumber))
                                               .collect(Collectors.toCollection(HashSet::new));
         return new TargetSet(newNumbers);
     }
 
-    public int intersectionSize(IndexedSetsFamilyMember set) {
+    public int intersectionSize(SetsFamilyMember set) {
         return (int) this.numbers.stream()
                                  .filter(set::containsNumber)
                                  .count();
     }
 
-    public boolean isIntersectionEmpty(IndexedSetsFamilyMember set) {
+    public boolean isIntersectionEmpty(SetsFamilyMember set) {
         Integer anyCommonNumber = this.numbers.stream()
                                               .filter(set::containsNumber)
                                               .findAny()
