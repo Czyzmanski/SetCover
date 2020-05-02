@@ -1,64 +1,71 @@
 package cover.algorithm;
 
-import cover.set.IndexedSetsFamily;
-import cover.set.IndexedSetsFamilyMember;
-import cover.set.TargetSet;
+import cover.set.SetsFamily;
+import cover.set.SetsFamilyMember;
+import cover.set.SetToCover;
 
 public class BruteForceCoverAlgorithm extends CoverAlgorithm {
 
     private boolean solutionFound;
 
-    public BruteForceCoverAlgorithm() {
+    public BruteForceCoverAlgorithm(SetToCover setToCover, SetsFamily setsFamily) {
+        super(setToCover, setsFamily);
         this.solutionFound = false;
     }
 
     @Override
-    public void run(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet) {
-        int n = indexedSetsFamily.size();
-        for (int k = 1; k <= n && !this.solutionFound; k++) {
-            int[] combination = new int[k];
-            this.checkCombination(0, indexedSetsFamily,
-                                  combination, 0, targetSet);
+    public void run() {
+        if (this.solutionExists(this.setToCover)) {
+            int setsFamilySize = this.setsFamily.size();
+            int combinationSize = 1;
+            while (combinationSize <= setsFamilySize && !this.solutionFound) {
+                int[] combination = new int[combinationSize];
+                this.checkCombinations(0, combination, 0, this.setToCover);
+                combinationSize++;
+            }
         }
     }
 
-    private void checkCombination(int currentIndex, IndexedSetsFamily indexedSetsFamily,
-                                  int[] combination, int added, TargetSet targetSet) {
-        if (!this.solutionFound) {
-            int indexedSetsFamilySize = indexedSetsFamily.size();
-            if (added == combination.length) {
-                if (targetSet.isEmpty()) {
-                    this.solutionFound = true;
-                    for (int i = 0; i < combination.length; i++) {
-                        this.solution.add(combination[i]);
-                    }
-                }
-            } else if (combination.length - added == indexedSetsFamilySize - currentIndex) {
-                while (added < combination.length) {
-                    combination[added] = currentIndex;
-                    targetSet = targetSet.removeNumbers(indexedSetsFamily.get(currentIndex));
-                    added++;
-                    currentIndex++;
-                }
+    private boolean solutionExists(SetToCover setToCover) {
+        int setsFamilySize = this.setsFamily.size();
+        for (int i = 0; i < setsFamilySize && !setToCover.isEmpty(); i++) {
+            SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
+            setToCover = setToCover.removeNumbers(setsFamilyMember);
+        }
+        return setToCover.isEmpty();
+    }
 
-                if (targetSet.isEmpty()) {
-                    this.solutionFound = true;
-                    for (int i = 0; i < combination.length; i++) {
-                        this.solution.add(combination[i]);
-                    }
-                }
-            } else {
-                IndexedSetsFamilyMember setsFamilyMember = indexedSetsFamily.get(currentIndex);
-                if (!targetSet.isIntersectionEmpty(setsFamilyMember)) {
-                    combination[added] = currentIndex;
+    private void checkCombinations(int i, int[] combination, int added, SetToCover setToCover) {
+        if (!this.solutionFound) {
+            int setsFamilySize = this.setsFamily.size();
+            if (added == combination.length) {
+                this.checkForSolution(combination, setToCover);
+            } else if (combination.length - added == setsFamilySize - i) {
+                while (added < combination.length) {
+                    combination[added] = i;
+                    SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
+                    setToCover = setToCover.removeNumbers(setsFamilyMember);
                     added++;
-                    TargetSet newTargetSet = targetSet.removeNumbers(setsFamilyMember);
-                    this.checkCombination(currentIndex + 1, indexedSetsFamily,
-                                          combination, added, newTargetSet);
-                    added--;
+                    i++;
                 }
-                this.checkCombination(currentIndex + 1, indexedSetsFamily,
-                                      combination, added, targetSet);
+                this.checkForSolution(combination, setToCover);
+            } else {
+                SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
+                if (!setToCover.isIntersectionEmpty(setsFamilyMember)) {
+                    combination[added] = i;
+                    SetToCover newSetToCover = setToCover.removeNumbers(setsFamilyMember);
+                    this.checkCombinations(i + 1, combination, added + 1, newSetToCover);
+                }
+                this.checkCombinations(i + 1, combination, added, setToCover);
+            }
+        }
+    }
+
+    private void checkForSolution(int[] combination, SetToCover setToCover) {
+        if (setToCover.isEmpty()) {
+            this.solutionFound = true;
+            for (int i = 0; i < combination.length; i++) {
+                this.solution.add(combination[i]);
             }
         }
     }

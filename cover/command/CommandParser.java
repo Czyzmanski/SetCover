@@ -3,8 +3,8 @@ package cover.command;
 import cover.algorithm.CoverAlgorithm;
 import cover.element.Element;
 import cover.element.ElementBuilder;
-import cover.set.IndexedSetsFamily;
-import cover.set.TargetSet;
+import cover.set.SetsFamily;
+import cover.set.SetToCover;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -14,14 +14,14 @@ import java.util.Scanner;
 
 public class CommandParser implements Iterator<Command> {
 
-    private final IndexedSetsFamily indexedSetsFamily;
+    private final SetsFamily setsFamily;
     private final Scanner inputScanner;
     private final OutputStream solutionOutputStream;
     private Integer lastRead;
 
-    public CommandParser(IndexedSetsFamily indexedSetsFamily,
+    public CommandParser(SetsFamily setsFamily,
                          InputStream inputStream, OutputStream solutionOutputStream) {
-        this.indexedSetsFamily = indexedSetsFamily;
+        this.setsFamily = setsFamily;
         this.inputScanner = new Scanner(inputStream);
         this.solutionOutputStream = solutionOutputStream;
         this.lastRead = null;
@@ -51,18 +51,16 @@ public class CommandParser implements Iterator<Command> {
     }
 
     private Command newSolveCoverCommand() {
-        int targetSetLastNumber = -this.lastRead;
-        int typeOfAlgorithm = this.inputScanner.nextInt();
-        TargetSet targetSet = new TargetSet(targetSetLastNumber);
-        CoverAlgorithm coverAlgorithm = CoverAlgorithm.newInstance(typeOfAlgorithm);
+        int setToCoverMaxNumber = -this.lastRead;
+        int coverAlgorithmType = this.inputScanner.nextInt();
         this.lastRead = null;
-        return new SolveCoverCommand(this.indexedSetsFamily, targetSet,
-                                     coverAlgorithm, this.solutionOutputStream);
+        return new SolveCoverCommand(this.setsFamily, setToCoverMaxNumber,
+                                     coverAlgorithmType, this.solutionOutputStream);
     }
 
     private Command newCreateSetCommand() {
         this.lastRead = null;
-        return new CreateSetCommand(this.indexedSetsFamily);
+        return new CreateSetCommand(this.setsFamily);
     }
 
     private Command newAddElementCommand() {
@@ -82,7 +80,7 @@ public class CommandParser implements Iterator<Command> {
             }
         }
         Element newElement = elementBuilder.buildElement();
-        return new AddElementCommand(this.indexedSetsFamily, newElement);
+        return new AddElementCommand(this.setsFamily, newElement);
     }
 
 }

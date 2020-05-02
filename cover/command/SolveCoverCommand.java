@@ -1,8 +1,8 @@
 package cover.command;
 
 import cover.algorithm.CoverAlgorithm;
-import cover.set.IndexedSetsFamily;
-import cover.set.TargetSet;
+import cover.set.SetsFamily;
+import cover.set.SetToCover;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -11,25 +11,27 @@ import java.util.List;
 
 public class SolveCoverCommand extends Command {
 
-    private final TargetSet targetSet;
+    private static final int NO_SOLUTION = 0;
+
     private final CoverAlgorithm coverAlgorithm;
     private final PrintWriter solutionWriter;
 
-    public SolveCoverCommand(IndexedSetsFamily indexedSetsFamily, TargetSet targetSet,
-                             CoverAlgorithm coverAlgorithm, OutputStream solutionOutputStream) {
-        super(indexedSetsFamily);
-        this.targetSet = targetSet;
-        this.coverAlgorithm = coverAlgorithm;
+    public SolveCoverCommand(SetsFamily setsFamily, int setToCoverMaxNumber,
+                             int coverAlgorithmType, OutputStream solutionOutputStream) {
+        super(setsFamily);
+        this.coverAlgorithm = CoverAlgorithm.newInstance(coverAlgorithmType,
+                                                         new SetToCover(setToCoverMaxNumber),
+                                                         this.setsFamily);
         this.solutionWriter = new PrintWriter(solutionOutputStream, true);
     }
 
     @Override
     public void execute() {
-        this.coverAlgorithm.run(this.indexedSetsFamily, this.targetSet);
+        this.coverAlgorithm.run();
         List<Integer> solution = this.coverAlgorithm.solution();
         Collections.sort(solution);
         if (solution.isEmpty()) {
-            this.solutionWriter.println(0);
+            this.solutionWriter.println(NO_SOLUTION);
         } else {
             this.solutionWriter.print(solution.get(0) + 1);
             int solutionSize = solution.size();

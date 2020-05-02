@@ -1,17 +1,17 @@
 package cover.command;
 
-import cover.set.IndexedSetsFamily;
-import cover.set.IndexedSetsFamilyMember;
+import cover.set.SetsFamily;
+import cover.set.SetsFamilyMember;
 
 public class CreateSetCommand extends Command {
 
-    public CreateSetCommand(IndexedSetsFamily indexedSetsFamily) {
-        super(indexedSetsFamily);
+    public CreateSetCommand(SetsFamily setsFamily) {
+        super(setsFamily);
     }
 
     @Override
     public void execute() {
-        this.indexedSetsFamily.addSet(new IndexedSetsFamilyMember());
+        this.setsFamily.addSet(new SetsFamilyMember());
     }
 
 }
