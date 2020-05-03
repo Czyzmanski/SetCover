@@ -1,10 +1,8 @@
 package cover.command;
 
-import cover.algorithm.CoverAlgorithm;
 import cover.element.Element;
 import cover.element.ElementBuilder;
 import cover.set.SetsFamily;
-import cover.set.SetToCover;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -69,10 +67,12 @@ public class CommandParser implements Iterator<Command> {
         if (this.hasNext()) {
             this.lastRead = this.inputScanner.nextInt();
             if (this.lastRead < 0) {
+                /* Element to be added is an arithmetic sequence. */
                 elementBuilder.addParameter(-this.lastRead);
                 if (this.hasNext()) {
                     this.lastRead = this.inputScanner.nextInt();
                     if (this.lastRead < 0) {
+                        /* Element to be added is an arithmetic sequence with upper bound. */
                         elementBuilder.addParameter(-this.lastRead);
                         this.lastRead = null;
                     }
