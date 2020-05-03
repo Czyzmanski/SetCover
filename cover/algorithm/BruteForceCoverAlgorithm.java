@@ -17,15 +17,17 @@ public class BruteForceCoverAlgorithm extends CoverAlgorithm {
     public void run() {
         if (this.solutionExists(this.setToCover)) {
             int setsFamilySize = this.setsFamily.size();
-            int combinationSize = 1;
-            while (combinationSize <= setsFamilySize && !this.solutionFound) {
-                int[] combination = new int[combinationSize];
-                this.checkCombinations(0, combination, 0, this.setToCover);
-                combinationSize++;
+            /* Consider subsets of the family of sets, in increasing order of their size. */
+            int subsetSize = 1;
+            while (subsetSize <= setsFamilySize && !this.solutionFound) {
+                int[] subset = new int[subsetSize];
+                this.checkSubsets(0, subset, 0, this.setToCover);
+                subsetSize++;
             }
         }
     }
 
+    /* Check if there exists any solution, by taking all sets from the family of sets. */
     private boolean solutionExists(SetToCover setToCover) {
         int setsFamilySize = this.setsFamily.size();
         for (int i = 0; i < setsFamilySize && !setToCover.isEmpty(); i++) {
@@ -35,37 +37,54 @@ public class BruteForceCoverAlgorithm extends CoverAlgorithm {
         return setToCover.isEmpty();
     }
 
-    private void checkCombinations(int i, int[] combination, int added, SetToCover setToCover) {
+    /**
+     * Recursively check all subsets of the family of sets that can form a solution,
+     * with number of elements in a subset equal to subset.length.
+     * A subset can form a solution if every set in it covers at least one number from set
+     * to be covered.
+     * @param i number of currently considered set from the family of sets
+     * @param subset array containing numbers of picked sets forming currently considered subset
+     * @param added number of sets' numbers added to subset array
+     * @param setToCover subset of initial set to cover, that has not been covered yet
+     */
+    private void checkSubsets(int i, int[] subset, int added, SetToCover setToCover) {
         if (!this.solutionFound) {
             int setsFamilySize = this.setsFamily.size();
-            if (added == combination.length) {
-                this.checkForSolution(combination, setToCover);
-            } else if (combination.length - added == setsFamilySize - i) {
-                while (added < combination.length) {
-                    combination[added] = i;
+            if (added == subset.length) {
+                this.checkForSolution(subset, setToCover);
+            } else if (subset.length - added == setsFamilySize - i) {
+                /* There is no other possibility of forming a subset with given size
+                 * than taking all remaining sets in the family of sets. */
+                while (added < subset.length) {
+                    subset[added] = i;
                     SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
                     setToCover = setToCover.removeNumbers(setsFamilyMember);
                     added++;
                     i++;
                 }
-                this.checkForSolution(combination, setToCover);
+                this.checkForSolution(subset, setToCover);
             } else {
                 SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
                 if (!setToCover.isIntersectionEmpty(setsFamilyMember)) {
-                    combination[added] = i;
+                    /* Add currently considered set to the subset and recur for forming
+                     * the rest of the subset. */
+                    subset[added] = i;
                     SetToCover newSetToCover = setToCover.removeNumbers(setsFamilyMember);
-                    this.checkCombinations(i + 1, combination, added + 1, newSetToCover);
+                    this.checkSubsets(i + 1, subset, added + 1, newSetToCover);
                 }
-                this.checkCombinations(i + 1, combination, added, setToCover);
+                /* Does not add currently considered set to the subset and recur for forming
+                 * the rest of the subset. */
+                this.checkSubsets(i + 1, subset, added, setToCover);
             }
         }
     }
 
-    private void checkForSolution(int[] combination, SetToCover setToCover) {
+    /* Check if set to cover has been covered entirely by given subset of the family of sets. */
+    private void checkForSolution(int[] subset, SetToCover setToCover) {
         if (setToCover.isEmpty()) {
             this.solutionFound = true;
-            for (int i = 0; i < combination.length; i++) {
-                this.solution.add(combination[i]);
+            for (int i = 0; i < subset.length; i++) {
+                this.solution.add(subset[i]);
             }
         }
     }

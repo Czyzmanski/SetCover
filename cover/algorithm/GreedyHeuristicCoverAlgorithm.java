@@ -30,6 +30,9 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
             }
 
             if (maxIntersectionSize == 0) {
+                /* There is no unused set, which has non-empty intersection with subset of set
+                 * to cover that has not been covered yet, in the family of sets, so there is
+                 * no solution. */
                 break;
             } else {
                 SetsFamilyMember maxIntersectionSizeSet =
@@ -41,6 +44,7 @@ public class GreedyHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
         }
 
         if (!this.setToCover.isEmpty()) {
+            /* Given set to cover has not been covered entirely, so there is no solution. */
             this.solution = new ArrayList<>();
         }
     }

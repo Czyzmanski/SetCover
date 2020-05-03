@@ -24,6 +24,7 @@ public class NaiveHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
         }
 
         if (!this.setToCover.isEmpty()) {
+            /* Given set to cover has not been covered entirely, so there is no solution. */
             this.solution = new ArrayList<>();
         }
     }

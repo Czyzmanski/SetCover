@@ -14,6 +14,7 @@ public abstract class CoverAlgorithm {
 
     protected SetToCover setToCover;
     protected SetsFamily setsFamily;
+    /* List containing numbers of sets used in solution. */
     protected List<Integer> solution;
 
     public CoverAlgorithm(SetToCover setToCover, SetsFamily setsFamily) {
