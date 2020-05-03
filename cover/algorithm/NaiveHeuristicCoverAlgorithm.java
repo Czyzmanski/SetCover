@@ -17,7 +17,7 @@ public class NaiveHeuristicCoverAlgorithm extends HeuristicCoverAlgorithm {
         int setsFamilySize = this.setsFamily.size();
         for (int i = 0; i < setsFamilySize && !this.setToCover.isEmpty(); i++) {
             SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
-            if (!this.setToCover.isIntersectionEmpty(setsFamilyMember)) {
+            if (this.setToCover.isIntersectionNonEmpty(setsFamilyMember)) {
                 this.setToCover = this.setToCover.removeNumbers(setsFamilyMember);
                 this.solution.add(i);
             }

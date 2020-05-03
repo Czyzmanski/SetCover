@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/* Immutable class representing set to be covered. */
 public class SetToCover {
 
     private static final int FIRST_NUMBER = 1;
@@ -22,6 +23,9 @@ public class SetToCover {
         this.numbers = numbers;
     }
 
+    /* Create new object representing this set to cover with its numbers present in any
+     * of the passed set's element being removed.
+     * This method does not modify the object to which it belongs. */
     public SetToCover removeNumbers(SetsFamilyMember set) {
         Set<Integer> newNumbers = this.numbers.stream()
                                               .filter(Predicate.not(set::containsNumber))
@@ -35,12 +39,12 @@ public class SetToCover {
                                  .count();
     }
 
-    public boolean isIntersectionEmpty(SetsFamilyMember set) {
+    public boolean isIntersectionNonEmpty(SetsFamilyMember set) {
         Integer anyCommonNumber = this.numbers.stream()
                                               .filter(set::containsNumber)
                                               .findAny()
                                               .orElse(null);
-        return anyCommonNumber == null;
+        return anyCommonNumber != null;
     }
 
     public boolean isEmpty() {

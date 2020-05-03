@@ -65,7 +65,7 @@ public class BruteForceCoverAlgorithm extends CoverAlgorithm {
                 this.checkForSolution(subset, setToCover);
             } else {
                 SetsFamilyMember setsFamilyMember = this.setsFamily.get(i);
-                if (!setToCover.isIntersectionEmpty(setsFamilyMember)) {
+                if (setToCover.isIntersectionNonEmpty(setsFamilyMember)) {
                     /* Add currently considered set to the subset and recur for forming
                      * the rest of the subset. */
                     subset[added] = i;
